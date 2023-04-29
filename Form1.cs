@@ -18,12 +18,20 @@ namespace LotterySimCore
             bw.WorkerSupportsCancellation = true;
             bw.DoWork += bw_DoWork;
             bw.ProgressChanged += bw_ProgressChanged!;
+            bw.RunWorkerCompleted += bw_SimCompleted;
         }
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             simProgress.Value = e.ProgressPercentage;
             GamesPlayed++;
+        }
+
+        private void bw_SimCompleted(object sender, EventArgs e)
+        {
+            GetActuals();
+            btnStartStop.Text = "Start";
+            btnReset.Enabled = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -49,6 +57,42 @@ namespace LotterySimCore
             txtGamesPlayed.DataBindings.Add("Text", this, "GamesPlayed");
         }
 
+        private void GetActuals()
+        {
+            lblOdds5MA.Text = FiveM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)FiveM), 2)}" : "N/A";
+            lblPrize5M.Text = $"${FiveM * (int)PrizeAmounts.Jackpot}";
+
+            lblOdds5A.Text = Five > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Five), 2)}" : "N/A";
+            lblPrize5.Text = $"${Five * (int)PrizeAmounts.Five}";
+
+            lblOdds4MA.Text = FourM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)FourM), 2)}" : "N/A";
+            lblPrize4M.Text = $"${FourM * (int)PrizeAmounts.FourM}";
+
+            lblOdds4A.Text = Four > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Four), 2)}" : "N/A";
+            lblPrize4.Text = $"${Four * (int)PrizeAmounts.Four}";
+
+            lblOdds3MA.Text = ThreeM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)ThreeM), 2)}" : "N/A";
+            lblPrize3M.Text = $"${ThreeM * (int)PrizeAmounts.ThreeM}";
+
+            lblOdds3A.Text = Three > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Three), 2)}" : "N/A";
+            lblPrize3.Text = $"${Three * (int)PrizeAmounts.Three}";
+
+            lblOdds2MA.Text = TwoM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)TwoM), 2)}" : "N/A";
+            lblPrize2M.Text = $"${TwoM * (int)PrizeAmounts.TwoM}";
+
+            lblOdds1MA.Text = OneM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)OneM), 2)}" : "N/A";
+            lblPrize1M.Text = $"${OneM * (int)PrizeAmounts.OneM}";
+
+            lblOddsMegaA.Text = Mega > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Mega), 2)}" : "N/A";
+            lblPrizeMega.Text = $"${Mega * (int)PrizeAmounts.Mega}";
+
+            lblOdds2A.Text = Two > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Two), 2)}" : "N/A";
+
+            lblOdds1A.Text = One > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)One), 2)}" : "N/A";
+
+            lblOddsZeroA.Text = Zero > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Zero), 2)}" : "N/A";
+        }
+
         private void btnStartStop_Click(object sender, EventArgs e)
         {
             if (!bw.IsBusy)
@@ -62,7 +106,7 @@ namespace LotterySimCore
                 chosenNumbers[3] = int.Parse(txtNum4.Text);
                 chosenNumbers[4] = int.Parse(txtNum5.Text);
                 btnReset.Enabled = false;
-                
+
                 bw.RunWorkerAsync();
             }
             else
@@ -114,6 +158,27 @@ namespace LotterySimCore
             GamesPlayed = 0;
             Spent = 0;
             Earned = 0;
+            lblOdds5MA.Text = String.Empty;
+            lblPrize5M.Text = String.Empty;
+            lblOdds5A.Text = String.Empty;
+            lblPrize5.Text = String.Empty;
+            lblOdds4MA.Text = String.Empty;
+            lblPrize4M.Text = String.Empty;
+            lblOdds4A.Text = String.Empty;
+            lblPrize4.Text = String.Empty;
+            lblOdds3MA.Text = String.Empty;
+            lblPrize3M.Text = String.Empty;
+            lblOdds3A.Text = String.Empty;
+            lblPrize3.Text = String.Empty;
+            lblOdds2MA.Text = String.Empty;
+            lblPrize2M.Text = String.Empty;
+            lblOdds1MA.Text = String.Empty;
+            lblPrize1M.Text = String.Empty;
+            lblOddsMegaA.Text = String.Empty;
+            lblPrizeMega.Text = String.Empty;
+            lblOdds2A.Text = String.Empty;
+            lblOdds1A.Text = String.Empty;
+            lblOddsZeroA.Text = String.Empty;
         }
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
@@ -248,6 +313,31 @@ namespace LotterySimCore
                 Zero++;
                 Earned += (int)PrizeAmounts.Zero;
             }
+        }
+
+        private void lblFourM_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblPrize4M_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void lblOdds4MA_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void lblOdds4M_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void txtFourM_TextChanged(object sender, EventArgs e)
+        {
         }
 
         private enum PrizeAmounts

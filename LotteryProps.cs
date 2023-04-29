@@ -276,6 +276,6 @@ namespace LotterySimCore
                         handler(this, EventArgs.Empty);
                 }
             }
-        }
+        }    
     }
 }
