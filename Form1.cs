@@ -29,9 +29,13 @@ namespace LotterySimCore
 
         private void bw_SimCompleted(object sender, EventArgs e)
         {
+            txtSpent.Text = $"${Spent:n0}";
+            txtEarned.Text = $"${Earned:n0}";
             GetActuals();
             btnStartStop.Text = "Start";
             btnReset.Enabled = true;
+            lblSpendEarningRatio.Text = $"$1 spent for every ${(double)Earned / (double)Spent:n} earned";
+            lblEarningSpendRatio.Text = $"$1 earned for every ${(double)Spent / (double)Earned:n} spent";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -40,57 +44,57 @@ namespace LotterySimCore
             GenerateNew();
 
             //set up field data bindings
-            txtFiveM.DataBindings.Add("Text", this, "FiveM");
-            txtFive.DataBindings.Add("Text", this, "Five");
-            txtFourM.DataBindings.Add("Text", this, "FourM");
-            txtFour.DataBindings.Add("Text", this, "Four");
-            txtThreeM.DataBindings.Add("Text", this, "ThreeM");
-            txtThree.DataBindings.Add("Text", this, "Three");
-            txtTwoM.DataBindings.Add("Text", this, "TwoM");
-            txtOneM.DataBindings.Add("Text", this, "OneM");
-            txtMega.DataBindings.Add("Text", this, "Mega");
-            txtTwo.DataBindings.Add("Text", this, "Two");
-            txtOne.DataBindings.Add("Text", this, "One");
-            txtZero.DataBindings.Add("Text", this, "Zero");
-            txtEarned.DataBindings.Add("Text", this, "Earned");
-            txtSpent.DataBindings.Add("Text", this, "Spent");
-            txtGamesPlayed.DataBindings.Add("Text", this, "GamesPlayed");
+            txtFiveM.DataBindings.Add("Text", this, "FiveM", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
+            txtFive.DataBindings.Add("Text", this, "Five", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
+            txtFourM.DataBindings.Add("Text", this, "FourM", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
+            txtFour.DataBindings.Add("Text", this, "Four", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
+            txtThreeM.DataBindings.Add("Text", this, "ThreeM", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
+            txtThree.DataBindings.Add("Text", this, "Three", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
+            txtTwoM.DataBindings.Add("Text", this, "TwoM", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
+            txtOneM.DataBindings.Add("Text", this, "OneM", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
+            txtMega.DataBindings.Add("Text", this, "Mega", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
+            txtTwo.DataBindings.Add("Text", this, "Two", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
+            txtOne.DataBindings.Add("Text", this, "One", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
+            txtZero.DataBindings.Add("Text", this, "Zero", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
+            txtEarned.DataBindings.Add("Text", this, "Earned", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
+            txtSpent.DataBindings.Add("Text", this, "Spent", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
+            txtGamesPlayed.DataBindings.Add("Text", this, "GamesPlayed", true, DataSourceUpdateMode.OnPropertyChanged, null, "n0");
         }
 
         private void GetActuals()
         {
-            lblOdds5MA.Text = FiveM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)FiveM), 2)}" : "N/A";
-            lblPrize5M.Text = $"${FiveM * (int)PrizeAmounts.Jackpot}";
+            lblOdds5MA.Text = FiveM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)FiveM), 2):n}" : "N/A";
+            lblPrize5M.Text = $"${FiveM * (int)PrizeAmounts.Jackpot:n0}";
 
-            lblOdds5A.Text = Five > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Five), 2)}" : "N/A";
-            lblPrize5.Text = $"${Five * (int)PrizeAmounts.Five}";
+            lblOdds5A.Text = Five > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Five), 2):n}" : "N/A";
+            lblPrize5.Text = $"${Five * (int)PrizeAmounts.Five:n0}";
 
-            lblOdds4MA.Text = FourM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)FourM), 2)}" : "N/A";
-            lblPrize4M.Text = $"${FourM * (int)PrizeAmounts.FourM}";
+            lblOdds4MA.Text = FourM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)FourM), 2):n}" : "N/A";
+            lblPrize4M.Text = $"${FourM * (int)PrizeAmounts.FourM:n0}";
 
-            lblOdds4A.Text = Four > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Four), 2)}" : "N/A";
-            lblPrize4.Text = $"${Four * (int)PrizeAmounts.Four}";
+            lblOdds4A.Text = Four > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Four), 2):n}" : "N/A";
+            lblPrize4.Text = $"${Four * (int)PrizeAmounts.Four:n0}";
 
-            lblOdds3MA.Text = ThreeM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)ThreeM), 2)}" : "N/A";
-            lblPrize3M.Text = $"${ThreeM * (int)PrizeAmounts.ThreeM}";
+            lblOdds3MA.Text = ThreeM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)ThreeM), 2):n}" : "N/A";
+            lblPrize3M.Text = $"${ThreeM * (int)PrizeAmounts.ThreeM:n0}";
 
-            lblOdds3A.Text = Three > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Three), 2)}" : "N/A";
-            lblPrize3.Text = $"${Three * (int)PrizeAmounts.Three}";
+            lblOdds3A.Text = Three > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Three), 2):n}" : "N/A";
+            lblPrize3.Text = $"${Three * (int)PrizeAmounts.Three:n0}";
 
-            lblOdds2MA.Text = TwoM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)TwoM), 2)}" : "N/A";
-            lblPrize2M.Text = $"${TwoM * (int)PrizeAmounts.TwoM}";
+            lblOdds2MA.Text = TwoM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)TwoM), 2):n}" : "N/A";
+            lblPrize2M.Text = $"${TwoM * (int)PrizeAmounts.TwoM:n0}";
 
-            lblOdds1MA.Text = OneM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)OneM), 2)}" : "N/A";
-            lblPrize1M.Text = $"${OneM * (int)PrizeAmounts.OneM}";
+            lblOdds1MA.Text = OneM > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)OneM), 2):n}" : "N/A";
+            lblPrize1M.Text = $"${OneM * (int)PrizeAmounts.OneM:n0}";
 
-            lblOddsMegaA.Text = Mega > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Mega), 2)}" : "N/A";
-            lblPrizeMega.Text = $"${Mega * (int)PrizeAmounts.Mega}";
+            lblOddsMegaA.Text = Mega > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Mega), 2):n}" : "N/A";
+            lblPrizeMega.Text = $"${Mega * (int)PrizeAmounts.Mega:n0}";
 
-            lblOdds2A.Text = Two > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Two), 2)}" : "N/A";
+            lblOdds2A.Text = Two > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Two), 2):n}" : "N/A";
 
-            lblOdds1A.Text = One > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)One), 2)}" : "N/A";
+            lblOdds1A.Text = One > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)One), 2):n}" : "N/A";
 
-            lblOddsZeroA.Text = Zero > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Zero), 2)}" : "N/A";
+            lblOddsZeroA.Text = Zero > 0 ? $"1 in {Math.Round(((double)GamesPlayed / (double)Zero), 2):n}" : "N/A";
         }
 
         private void btnStartStop_Click(object sender, EventArgs e)
@@ -179,6 +183,8 @@ namespace LotterySimCore
             lblOdds2A.Text = String.Empty;
             lblOdds1A.Text = String.Empty;
             lblOddsZeroA.Text = String.Empty;
+            lblEarningSpendRatio.Text = String.Empty;
+            lblSpendEarningRatio.Text = String.Empty;
         }
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)

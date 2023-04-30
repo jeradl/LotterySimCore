@@ -114,6 +114,8 @@
             lblPrize2M = new Label();
             lblPrize1M = new Label();
             lblPrizeMega = new Label();
+            lblSpendEarningRatio = new Label();
+            lblEarningSpendRatio = new Label();
             SuspendLayout();
             // 
             // btnStartStop
@@ -838,11 +840,30 @@
             lblPrizeMega.Size = new Size(0, 17);
             lblPrizeMega.TabIndex = 95;
             // 
+            // lblSpendEarningRatio
+            // 
+            lblSpendEarningRatio.AutoSize = true;
+            lblSpendEarningRatio.Location = new Point(650, 234);
+            lblSpendEarningRatio.Name = "lblSpendEarningRatio";
+            lblSpendEarningRatio.Size = new Size(0, 17);
+            lblSpendEarningRatio.TabIndex = 96;
+            // 
+            // lblEarningSpendRatio
+            // 
+            lblEarningSpendRatio.AutoSize = true;
+            lblEarningSpendRatio.Location = new Point(650, 267);
+            lblEarningSpendRatio.Name = "lblEarningSpendRatio";
+            lblEarningSpendRatio.Size = new Size(0, 17);
+            lblEarningSpendRatio.TabIndex = 97;
+            // 
             // Form1
             // 
+            AcceptButton = btnStartStop;
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(904, 450);
+            Controls.Add(lblEarningSpendRatio);
+            Controls.Add(lblSpendEarningRatio);
             Controls.Add(lblPrizeMega);
             Controls.Add(lblPrize1M);
             Controls.Add(lblPrize2M);
@@ -1023,5 +1044,7 @@
         private Label lblPrize2M;
         private Label lblPrize1M;
         private Label lblPrizeMega;
+        private Label lblSpendEarningRatio;
+        private Label lblEarningSpendRatio;
     }
 }
