@@ -208,8 +208,16 @@ namespace LotterySimCore
                 bw.ReportProgress(i * 100 / rounds);
             }
 
-            //finish sim data here
-            //simModel.
+            simModel.Earned = Earned;
+            simModel.Spent = Spent;
+            simModel.GamesPlayed = GamesPlayed;
+            simModel.NumbersChosen = new int[5]; 
+            simModel.NumbersChosen[0] = int.Parse(txtNum1.Text);
+            simModel.NumbersChosen[1] = int.Parse(txtNum2.Text);
+            simModel.NumbersChosen[2] = int.Parse(txtNum3.Text);
+            simModel.NumbersChosen[3] = int.Parse(txtNum4.Text);
+            simModel.NumbersChosen[4] = int.Parse(txtNum5.Text);
+            simModel.MegaChosen = int.Parse(txtNumMega.Text);
 
             MongoRepository.UpdateSimulation(_simId, simModel);
         }

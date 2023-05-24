@@ -22,7 +22,7 @@ namespace LotterySimCore
             _simId = simId;
 
             DrawNumbers();
-            Result(numbers, mega);
+            Result(numbers, mega);          
 
             return (_numbersMatched, _megaMatched);
         }
@@ -30,22 +30,23 @@ namespace LotterySimCore
         private void DrawNumbers()
         {
             _winningNumbers = Enumerable.Range(1, 70).OrderBy(o => RandomNumberGenerator.GetInt32(1, 71)).Take(5).ToArray();
-            _winningMega = RandomNumberGenerator.GetInt32(1, 26);
-
-            var game = new GameModel
-            {
-                NumbersDrawn = _winningNumbers,
-                MegaDrawn = _winningMega,
-                SimID = _simId
-            };
-
-            MongoRepository.SaveGame(game);
+            _winningMega = RandomNumberGenerator.GetInt32(1, 26);            
         }
 
         private void Result(int[] chosenNumbers, int chosenMega)
         {
             _megaMatched = (_winningMega == chosenMega);
             _numbersMatched = _winningNumbers.Intersect(chosenNumbers).Count();
+
+            var game = new GameModel
+            {
+                NumbersDrawn = _winningNumbers,
+                MegaDrawn = _winningMega,
+                SimID = _simId,
+                Result = _numbersMatched.ToString() + (_megaMatched == true ? "P" : "")
+            };
+
+            MongoRepository.SaveGame(game);
         }
     }
 }
