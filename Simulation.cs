@@ -11,13 +11,16 @@ namespace LotterySimCore
     {     
         int[] _winningNumbers = new int[5];
         int _winningMega;
+        internal string _simId;
 
         //return these to caller
         int _numbersMatched;
         bool _megaMatched;
 
-        public (int, bool) RunGame(int[] numbers, int mega)
+        public (int, bool) RunGame(int[] numbers, int mega, string simId)
         {
+            _simId = simId;
+
             DrawNumbers();
             Result(numbers, mega);
 
@@ -28,6 +31,15 @@ namespace LotterySimCore
         {
             _winningNumbers = Enumerable.Range(1, 70).OrderBy(o => RandomNumberGenerator.GetInt32(1, 71)).Take(5).ToArray();
             _winningMega = RandomNumberGenerator.GetInt32(1, 26);
+
+            var game = new GameModel
+            {
+                NumbersDrawn = _winningNumbers,
+                MegaDrawn = _winningMega,
+                SimID = _simId
+            };
+
+            MongoRepository.SaveGame(game);
         }
 
         private void Result(int[] chosenNumbers, int chosenMega)

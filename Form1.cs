@@ -10,6 +10,7 @@ namespace LotterySimCore
         int rounds;
         int megaNumber;
         int[] chosenNumbers = new int[5];
+        string _simId;
 
         public Form1()
         {
@@ -190,6 +191,9 @@ namespace LotterySimCore
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             Simulation sim = new Simulation();
+            SimulationModel simModel = new SimulationModel();
+
+            _simId = MongoRepository.CreateSimulation(simModel).Result;
 
             for (int i = 1; i <= rounds; i++)
             {
@@ -199,10 +203,15 @@ namespace LotterySimCore
                     return;
                 }
 
-                var results = sim.RunGame(chosenNumbers, megaNumber);
+                var results = sim.RunGame(chosenNumbers, megaNumber, _simId);
                 HandleResults(results.Item1, results.Item2);
                 bw.ReportProgress(i * 100 / rounds);
             }
+
+            //finish sim data here
+            //simModel.
+
+            MongoRepository.UpdateSimulation(_simId, simModel);
         }
 
         private void HandleResults(int matchCount, bool mega)
