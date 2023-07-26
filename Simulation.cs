@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 
 namespace LotterySimCore
 {
@@ -17,10 +12,8 @@ namespace LotterySimCore
         int _numbersMatched;
         bool _megaMatched;
 
-        public (int, bool) RunGame(int[] numbers, int mega, string simId)
+        public (int, bool) RunGame(int[] numbers, int mega)
         {
-            _simId = simId;
-
             DrawNumbers();
             Result(numbers, mega);          
 
@@ -38,11 +31,11 @@ namespace LotterySimCore
             _megaMatched = (_winningMega == chosenMega);
             _numbersMatched = _winningNumbers.Intersect(chosenNumbers).Count();
 
-            var game = new GameModel
+            var game = new SimModel
             {
                 NumbersDrawn = _winningNumbers,
                 MegaDrawn = _winningMega,
-                SimID = _simId,
+                id = _simId,
                 Result = _numbersMatched.ToString() + (_megaMatched == true ? "P" : "")
             };
 

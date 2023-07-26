@@ -10,7 +10,6 @@ namespace LotterySimCore
         int rounds;
         int megaNumber;
         int[] chosenNumbers = new int[5];
-        string _simId;
 
         public Form1()
         {
@@ -159,19 +158,6 @@ namespace LotterySimCore
             Two = 0;
             One = 0;
             Zero = 0;
-            simProgress.Value = 0;
-            GamesPlayed = 0;
-            Spent = 0;
-            Earned = 0;
-            lblOdds5MA.Text = String.Empty;
-            lblPrize5M.Text = String.Empty;
-            lblOdds5A.Text = String.Empty;
-            lblPrize5.Text = String.Empty;
-            lblOdds4MA.Text = String.Empty;
-            lblPrize4M.Text = String.Empty;
-            lblOdds4A.Text = String.Empty;
-            lblPrize4.Text = String.Empty;
-            lblOdds3MA.Text = String.Empty;
             lblPrize3M.Text = String.Empty;
             lblOdds3A.Text = String.Empty;
             lblPrize3.Text = String.Empty;
@@ -191,9 +177,9 @@ namespace LotterySimCore
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             Simulation sim = new Simulation();
-            SimulationModel simModel = new SimulationModel();
-
-            _simId = MongoRepository.CreateSimulation(simModel).Result;
+            SimModel simModel = new SimModel();
+            
+            //MongoRepository.CreateSim(simModel);
 
             for (int i = 1; i <= rounds; i++)
             {
@@ -203,7 +189,7 @@ namespace LotterySimCore
                     return;
                 }
 
-                var results = sim.RunGame(chosenNumbers, megaNumber, _simId);
+                var results = sim.RunGame(chosenNumbers, megaNumber);
                 HandleResults(results.Item1, results.Item2);
                 bw.ReportProgress(i * 100 / rounds);
             }
@@ -218,8 +204,6 @@ namespace LotterySimCore
             simModel.NumbersChosen[3] = int.Parse(txtNum4.Text);
             simModel.NumbersChosen[4] = int.Parse(txtNum5.Text);
             simModel.MegaChosen = int.Parse(txtNumMega.Text);
-
-            MongoRepository.UpdateSimulation(_simId, simModel);
         }
 
         private void HandleResults(int matchCount, bool mega)
