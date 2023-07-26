@@ -7,7 +7,7 @@ namespace LotterySimCore
     internal static class MongoRepository
     {
         private const string _connectionString = "mongodb://localhost:27017";
-        private const string _databaseName = "Games";
+        private const string _databaseName = "Simulation";
         private static readonly IMongoCollection<SimModel> _sim;
         private static MongoClient _mongoClient = new MongoClient(_connectionString);
         private static IMongoDatabase _mongoDatabase = _mongoClient.GetDatabase(_databaseName);
@@ -15,7 +15,7 @@ namespace LotterySimCore
         static MongoRepository()
         {
             _sim = _mongoDatabase.GetCollection<SimModel>("Games");        
-        }
+        }`
 
         internal async static Task SaveGame(SimModel model)
         {

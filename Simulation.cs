@@ -38,8 +38,7 @@ namespace LotterySimCore
                 id = _simId,
                 Result = _numbersMatched.ToString() + (_megaMatched == true ? "P" : "")
             };
-
-            MongoRepository.SaveGame(game);
+          
         }
     }
 }
