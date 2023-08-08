@@ -19,11 +19,22 @@ namespace LotterySimCore
         {
             id = ObjectId.GenerateNewId().ToString()
         };
-        //SimModel sim = new();
 
-        public Simulation()
+        public Simulation(bool randomChosen)
         {
-            _simId = sim.id;
+            sim.RandomizeChosen = randomChosen;
+
+            if (sim.RandomizeChosen)
+            {
+                sim.ChosenDistro = new int[71];
+                sim.ChosenMegaDistro = new int[26];
+            }
+            else
+            {
+                sim.ChosenDistro = new int[0];
+                sim.ChosenMegaDistro = new int[0];
+            }
+            
         }
 
         public (int, bool) RunGame(int[] numbers, int mega)
@@ -77,6 +88,17 @@ namespace LotterySimCore
             sim.NumbersDistro[_winningNumbers[4]]++;
 
             sim.MegaDistro[_winningMega]++;
+
+            if (sim.RandomizeChosen)
+            {
+                sim.ChosenDistro[chosenNumbers[0]]++;
+                sim.ChosenDistro[chosenNumbers[1]]++;
+                sim.ChosenDistro[chosenNumbers[2]]++;
+                sim.ChosenDistro[chosenNumbers[3]]++;
+                sim.ChosenDistro[chosenNumbers[4]]++;
+
+                sim.ChosenMegaDistro[chosenMega]++;
+            }
 
             sim.Results[gameSummary.Result]++;
 

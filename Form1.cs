@@ -177,14 +177,20 @@ namespace LotterySimCore
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
-            Simulation sim = new Simulation();
-                        
+            Simulation sim = new Simulation(randomChosen.Checked);
+
             for (int i = 1; i <= rounds; i++)
             {
                 if (bw.CancellationPending)
                 {
                     e.Cancel = true;
                     return;
+                }
+
+                if (randomChosen.Checked)
+                {
+                    chosenNumbers = Enumerable.Range(1, 70).OrderBy(o => RandomNumberGenerator.GetInt32(1, 71)).Take(5).ToArray();
+                    megaNumber = RandomNumberGenerator.GetInt32(1, 26);
                 }
 
                 var results = sim.RunGame(chosenNumbers, megaNumber);

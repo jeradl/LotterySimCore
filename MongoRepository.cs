@@ -54,12 +54,16 @@ namespace LotterySimCore
         public int Spent { get; set; }
         public int[] NumbersDistro { get; set; }
         public int[] MegaDistro { get; set; }
+        public bool RandomizeChosen { get; set; }
+        public int[] ChosenDistro { get; set; }
+        public int[] ChosenMegaDistro { get; set; }
         public Dictionary<string, int> Results { get; set; }   
 
         public SimModel()
         {
             NumbersDistro = new int[71];
             MegaDistro = new int[26];
+
             Results = new Dictionary<string, int>
             {
                 { "5M", 0 },

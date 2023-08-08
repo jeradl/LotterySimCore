@@ -116,6 +116,7 @@
             lblPrizeMega = new Label();
             lblSpendEarningRatio = new Label();
             lblEarningSpendRatio = new Label();
+            randomChosen = new CheckBox();
             SuspendLayout();
             // 
             // btnStartStop
@@ -856,12 +857,23 @@
             lblEarningSpendRatio.Size = new Size(0, 17);
             lblEarningSpendRatio.TabIndex = 97;
             // 
+            // randomChosen
+            // 
+            randomChosen.AutoSize = true;
+            randomChosen.Location = new Point(514, 317);
+            randomChosen.Name = "randomChosen";
+            randomChosen.Size = new Size(92, 21);
+            randomChosen.TabIndex = 98;
+            randomChosen.Text = "Randomize";
+            randomChosen.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AcceptButton = btnStartStop;
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(904, 450);
+            Controls.Add(randomChosen);
             Controls.Add(lblEarningSpendRatio);
             Controls.Add(lblSpendEarningRatio);
             Controls.Add(lblPrizeMega);
@@ -1046,5 +1058,6 @@
         private Label lblPrizeMega;
         private Label lblSpendEarningRatio;
         private Label lblEarningSpendRatio;
+        private CheckBox randomChosen;
     }
 }
