@@ -9,7 +9,6 @@ namespace LotterySimCore
     {     
         int[] _winningNumbers = new int[5];
         int _winningMega;
-        internal string _simId;
 
         //return these to caller
         int _numbersMatched;
@@ -45,10 +44,11 @@ namespace LotterySimCore
             return (_numbersMatched, _megaMatched);
         }
 
-        public void EndGame(int spent, int earned)
+        public void EndGame(int spent, int earned, int numRounds)
         {
             sim.Spent = spent;
             sim.Earned = earned;
+            sim.NumberOfRounds = numRounds;
             MongoRepository.SaveSim(sim);
         }
 
@@ -78,7 +78,7 @@ namespace LotterySimCore
                 N5Drawn = _winningNumbers[4],
                 MegaDrawn = _winningMega,
                 Result = _numbersMatched.ToString() + (_megaMatched == true ? "M" : ""),
-                SimId = _simId
+                SimId = sim.id
             };
 
             sim.NumbersDistro[_winningNumbers[0]]++;

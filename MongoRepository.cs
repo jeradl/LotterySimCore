@@ -25,23 +25,9 @@ namespace LotterySimCore
             _game.InsertOneAsync(model);
         }
 
-        internal static string SaveSim(SimModel sim)
+        internal static void SaveSim(SimModel sim)
         {
             _sim.InsertOneAsync(sim);
-
-            return sim.id;
-        }
-
-        internal static void UpdateSim(SimModel sim)
-        {
-            var filter = Builders<SimModel>.Filter.Eq("id", sim.id);
-            var update = Builders<SimModel>.Update.Set("MegaDistro", sim.MegaDistro)
-                .Set("NumbersDistro", sim.NumbersDistro)
-                .Set("Results", sim.Results)
-                .Set("Earned", sim.Earned)
-                .Set("Spent", sim.Spent);
-
-            _sim.UpdateOneAsync(filter, update);
         }
     }
 
@@ -52,6 +38,7 @@ namespace LotterySimCore
         public string id { get; set; }
         public int Earned { get; set; }
         public int Spent { get; set; }
+        public int NumberOfRounds { get; set; }
         public int[] NumbersDistro { get; set; }
         public int[] MegaDistro { get; set; }
         public bool RandomizeChosen { get; set; }

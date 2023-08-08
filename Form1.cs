@@ -198,7 +198,7 @@ namespace LotterySimCore
                 bw.ReportProgress(i * 100 / rounds);
             }
 
-            sim.EndGame(Spent, Earned);
+            sim.EndGame(Spent, Earned, rounds);
         }
 
         private void HandleResults(int matchCount, bool mega)
