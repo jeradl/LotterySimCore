@@ -10,6 +10,7 @@ namespace LotterySimCore
         int rounds;
         int megaNumber;
         int[] chosenNumbers = new int[5];
+        GameModel simModel = new GameModel();
 
         public Form1()
         {
@@ -177,10 +178,7 @@ namespace LotterySimCore
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             Simulation sim = new Simulation();
-            SimModel simModel = new SimModel();
-            
-            //MongoRepository.CreateSim(simModel);
-
+                        
             for (int i = 1; i <= rounds; i++)
             {
                 if (bw.CancellationPending)
@@ -194,16 +192,7 @@ namespace LotterySimCore
                 bw.ReportProgress(i * 100 / rounds);
             }
 
-            simModel.Earned = Earned;
-            simModel.Spent = Spent;
-            simModel.GamesPlayed = GamesPlayed;
-            simModel.NumbersChosen = new int[5]; 
-            simModel.NumbersChosen[0] = int.Parse(txtNum1.Text);
-            simModel.NumbersChosen[1] = int.Parse(txtNum2.Text);
-            simModel.NumbersChosen[2] = int.Parse(txtNum3.Text);
-            simModel.NumbersChosen[3] = int.Parse(txtNum4.Text);
-            simModel.NumbersChosen[4] = int.Parse(txtNum5.Text);
-            simModel.MegaChosen = int.Parse(txtNumMega.Text);
+            sim.EndGame(Spent, Earned);
         }
 
         private void HandleResults(int matchCount, bool mega)
